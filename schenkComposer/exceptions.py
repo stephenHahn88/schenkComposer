@@ -1,0 +1,6 @@
+
+
+class InvalidSampleException(Exception):
+    pass
+
+
