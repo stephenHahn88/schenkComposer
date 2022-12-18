@@ -13,7 +13,9 @@ CLASSICAL_TRANSITION_MATRIX = {
         [1, 0, 1, 0, 1, 0, 0], # vi
         [1, 1, 1, 1, 0, 0, 0]  # viio
     ], dtype=float),
-    "labels": ["I", "ii", "iii", "IV", "V", "vi", "viio6"]
+    "labels": ["I", "ii", "iii", "IV", "V", "vi", "viio6"],
+    "open": ["V"],
+    "close": ["I"]
 }
 
 
@@ -27,7 +29,9 @@ CLASSICAL_MINOR_TRANSITION_MATRIX = {
         [1, 0, 1, 0, 1, 0, 0], # vi
         [1, 1, 1, 1, 0, 0, 0]  # viio
     ], dtype=float),
-    "labels": ["i", "iio6", "III", "iv", "V", "VI", "viio6"]
+    "labels": ["i", "iio6", "III", "iv", "V", "VI", "viio6"],
+    "open": ["V"],
+    "close": ["I"]
 }
 
 
@@ -41,17 +45,21 @@ ROCK_TRANSITION_MATRIX = {
         [1, 2, 1, 2, 4, 2, 0], #vi
         [1, 0, 0, 0, 0, 0, 1]
     ], dtype=float),
-    "labels": ["I", "ii", "iii", "IV", "V", "vi", "viio6"]
+    "labels": ["I", "ii", "iii", "IV", "V", "vi", "viio6"],
+    "open": ["V", "IV"],
+    "close": ["I"]
 }
 
-CHINESE_TRANSITION_MATRIX = {
+PENTATONIC_TRANSITION_MATRIX = {
     "matrix": np.array([
         [0, 0, 5, 0],
         [2, 0, 0, 3],
         [1, 3, 0, 1],
         [1, 2, 4, 0]
     ], dtype=float),
-    "labels": ["I", "iii[no5]", "V[no3]", "vi"]
+    "labels": ["I", "iii[no5]", "V[no3]", "vi"],
+    "open": ["V[no3]"],
+    "close": ["I"]
 }
 
 GAGAKU_TRANSITION_MATRIX = {
@@ -66,13 +74,17 @@ GAGAKU_TRANSITION_MATRIX = {
         "ii[no3][add4][add7][add#2]", #otsu
         "V[no3][add2][add4][add#6]", #gyo
         "vii[add4][add7]" # ichi
-    ]
+    ],
+    "open": ["V[no3][add2][add4][add#6]"],
+    "close": ["I[no5][add2][add6][add7]"]
 }
 
-RANDOM_DIATONIC_TRANSITION_MATRIX = (
-    np.random.random(size=(7, 7)),
-    ["I", "ii", "iii", "IV", "V", "vi", "viio6"]
-)
+RANDOM_DIATONIC_TRANSITION_MATRIX = {
+    "matrix": np.random.random(size=(7, 7)),
+    "labels": ["I", "ii", "iii", "IV", "V", "vi", "viio6"],
+    "open": random.sample(["I", "ii", "iii", "IV", "V", "vi", "viio6"], k=1),
+    "close": random.sample(["I", "ii", "iii", "IV", "V", "vi", "viio6"], k=1)
+}
 
 
 RANDOM_TRANSITION_MATRIX = (
@@ -87,7 +99,7 @@ presetCollection = {
     "Classical_Major": CLASSICAL_TRANSITION_MATRIX,
     "Classical_Minor": CLASSICAL_MINOR_TRANSITION_MATRIX,
     "Rock": ROCK_TRANSITION_MATRIX,
-    "Pentatonic": CHINESE_TRANSITION_MATRIX,
+    "Pentatonic": PENTATONIC_TRANSITION_MATRIX,
     "Random_Diatonic": RANDOM_DIATONIC_TRANSITION_MATRIX,
 }
 

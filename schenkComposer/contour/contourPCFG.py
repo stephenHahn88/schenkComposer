@@ -4,7 +4,8 @@ from multipledispatch import dispatch
 from schenkComposer.utility import productionsDictFromJSON
 from schenkComposer.contour.contour import Contour
 
-class ContourPCFG():
+
+class ContourPCFG:
     """
     Probabilistic context-free grammar for contours
     """
@@ -54,7 +55,6 @@ class ContourPCFG():
         )
         self.productions = [startProduction] + self.productions[1:]
         self.pcfg = PCFG(Nonterminal("S"), self.productions)
-
 
     def generate(self, num: int):
         """Generate `num` examples from the grammar"""

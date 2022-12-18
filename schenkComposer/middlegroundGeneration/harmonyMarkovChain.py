@@ -10,6 +10,8 @@ class HarmonyMarkovChain():
     def __init__(self,
                  transitionMatrix: np.array = None,
                  labels: list[str] = None,
+                 openHarmonies: list[str] = None,
+                 closeHarmonies: list[str] = None,
                  key: Key = Key("C")
                  ):
         if transitionMatrix is None:
@@ -30,8 +32,12 @@ class HarmonyMarkovChain():
 
         if labels is None:
             self.labels = ["I", "ii", "iii", "IV", "V", "vi", "viio6"]
+            self.openHarmonies = ["V"]
+            self.closeHarmonies = ["I"]
         else:
             self.labels = labels
+            self.openHarmonies = openHarmonies
+            self.closeHarmonies = closeHarmonies
 
         if self.transitions.shape[0] != self.transitions.shape[1]:
             raise ValueError(
@@ -50,11 +56,14 @@ class HarmonyMarkovChain():
         progression = self._forwardPass(progression, length)
         return list(reversed(progression))
 
+    def forwardsFromHarmony(self, harmony: str, length: int = 5) -> list[str]:
+        return self._forwardPass([harmony], length)
+
     def _forwardPass(self, progression, length) -> list[str]:
         for i in range(length-1):
             index = self.labels.index(progression[i])
-            next = choices(self.labels, weights=self.transitions[index], k=1)[0]
-            progression.append(next)
+            nextHarmony = choices(self.labels, weights=self.transitions[index], k=1)[0]
+            progression.append(nextHarmony)
         return progression
 
 

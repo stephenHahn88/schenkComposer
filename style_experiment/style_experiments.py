@@ -72,7 +72,7 @@ def rock_generator():
 
 def pentatonic_generator():
     scale = ConcreteScale(pitches=["C4", "D4", "E4", "G4", "A4"])
-    pentatonic = presetTransitionMatrices.CHINESE_TRANSITION_MATRIX
+    pentatonic = presetTransitionMatrices.PENTATONIC_TRANSITION_MATRIX
     main(
         {
             "4/4": {

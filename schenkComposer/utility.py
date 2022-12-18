@@ -298,6 +298,7 @@ def parseRhythmsToQuarterLengths(rhythms: list[str]):
     return [dic[rhythm] for rhythm in rhythms]
 
 
+
 if __name__ == "__main__":
     # noteListHarmonyListToMidi(
     #     [Note("C4"), Note("D4"), Note("E4")],

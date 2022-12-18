@@ -7,7 +7,7 @@ class RomanNumeral(RN):
         super().__init__(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.key.tonicPitchNameWithCase}: {self.romanNumeral}: {self.quarterLength}"
+        return f"{self.key.tonicPitchNameWithCase}: {self.figure}: {self.quarterLength}"
 
     def __repr__(self):
-        return f"{self.key.tonicPitchNameWithCase}: {self.romanNumeral}: {self.quarterLength}"
+        return f"{self.key.tonicPitchNameWithCase}: {self.figure}: {self.quarterLength}"

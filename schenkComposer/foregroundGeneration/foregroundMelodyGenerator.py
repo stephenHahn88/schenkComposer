@@ -132,8 +132,6 @@ def generateForegroundMelody(
     if middlegroundHarmonicRhythm is None:
         middlegroundHarmonicRhythm = generateHarmonicRhythm(timeSignature, numMeasures, phraseEnd=phraseEnd,
                                                             possibleHarmonicRhythms=possibleHarmonicRhythms)
-    # if middlegroundHarmonicRhythm == "ablation":
-    #     middlegroundHarmonicRhythm = [1, 1, 1, 1, 1, 1, 1, 1]
     if middlegroundHarmony is None:
         middlegroundHarmony = harmonyMarkovChain.backwardsFromHarmony(endHarmony,
                                                                       length=len(middlegroundHarmonicRhythm))
@@ -145,13 +143,6 @@ def generateForegroundMelody(
             middlegroundHarmony,
             endOn=endOn
         )
-    # if middlegroundMelody == "ablation":
-    #     middlegroundMelody = smoothBackwardMiddlegroundMelodyGenerator(
-    #         middlegroundHarmony,
-    #         endOn=endOn
-    #     )
-    #     for n in middlegroundMelody:
-    #         n.octave = choices([4, 6], k=1)[0]
 
     if foregroundRhythm is None:
         foregroundRhythm = generateForegroundRhythm(middlegroundHarmonicRhythm, timeSignature,
