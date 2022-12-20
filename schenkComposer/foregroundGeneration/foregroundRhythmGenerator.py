@@ -7,8 +7,15 @@ from random import sample
 def generateForegroundRhythm(
         middlegroundHarmonicRhythm: list[float],
         timeSignature: TimeSignature,
-        stockRhythms=meters
+        stockRhythms: dict = meters
 ) -> list[tuple]:
+    """
+    Generates foreground rhythm using a set of stock rhythms
+    :param middlegroundHarmonicRhythm: The middleground harmonic rhythm, which is broken into the foreground rhythm
+    :param timeSignature: Music21 TimeSignature object
+    :param stockRhythms: The dict of possible rhythms
+    :return: Foreground rhythm in the form of [(2, 1), (1, 1, 1), ...] where each tuple adds up to a harmonic rhythm
+    """
     meter = f"{timeSignature.numerator}/{timeSignature.denominator}"
     foregroundRhythm = []
     for rhythm in middlegroundHarmonicRhythm:

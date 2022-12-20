@@ -24,6 +24,7 @@ db = client.test
 melodies = db.melodies
 
 
+# Generates single subphrase from scratch
 @app.route("/model/generate-all")
 def generateAll():
     notes, harmony = generateForegroundMelodyUntilValid()
@@ -35,6 +36,7 @@ def generateAll():
     return json.dumps({"notes": notes, "harmonies": harmony})
 
 
+# Get matrix of provided name
 @app.route("/model/matrix/<matrixName>")
 def getMatrix(matrixName):
     matrix = deepcopy(presetCollection[matrixName])
@@ -43,6 +45,7 @@ def getMatrix(matrixName):
     return matrix
 
 
+# Generate harmonic sequence with given end, length, matrix, and labels
 @app.route("/model/harmonic-progression/<endHarmony>/<int:length>/<transitionMatrix>/<transitionLabels>")
 def generateHarmony(endHarmony: str, length: int, transitionMatrix: str, transitionLabels: str):
     parsedLabels = transitionLabels.split("-")
@@ -56,6 +59,7 @@ def generateHarmony(endHarmony: str, length: int, transitionMatrix: str, transit
     return {"progression": progression}
 
 
+# Generate a random phrase structure
 @app.route("/model/phrase-structure")
 def generatePhraseStructure():
     phrase = generatePhrase()
@@ -63,6 +67,7 @@ def generatePhraseStructure():
     return {"phrase": phrase}
 
 
+# Generate smooth middleground given a harmonic progression
 @app.route("/model/middleground-melody/<string:harmonicProgression>")
 def generateMiddlegroundMelody(harmonicProgression):
     parsedHarmony = harmonicProgression.split("-")
@@ -73,6 +78,7 @@ def generateMiddlegroundMelody(harmonicProgression):
     return {"mgNotes": notes}
 
 
+# Generate foreground rhythm with time signature and middleground rhythm
 @app.route("/model/foreground-rhythm/<string:time>/<string:mgRhythm>")
 def generateForegroundRhythm(time: str, mgRhythm: str):
     timeSignature = TimeSignature("/".join(time.split("-")))
@@ -87,6 +93,7 @@ def generateForegroundRhythm(time: str, mgRhythm: str):
     return {"fgRhythm": foregroundRhythm}
 
 
+# Generate melody using all possible parameters
 @app.route("/model/generate-melody/<string:mgMelody>/<string:fgRhythm>/<string:mgRhythm>/<string:mgHarmony>")
 def generateMelody(mgMelody, fgRhythm, mgRhythm, mgHarmony):
     mgMelody = _mgMelodyParser(mgMelody)
@@ -106,6 +113,7 @@ def generateMelody(mgMelody, fgRhythm, mgRhythm, mgHarmony):
     return {"notes": notes, "harmony": harmony}
 
 
+# Generate melody without foreground rhythm and middleground melody
 @app.route("/model/generate-melody/partial/<string:meter>/<string:mgRhythm>/<string:mgHarmony>")
 def generateMelodyWithoutForeground(meter, mgRhythm, mgHarmony):
     mgRhythm = _mgRhythmParser(mgRhythm)

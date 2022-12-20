@@ -3,6 +3,7 @@ from random import choices
 
 
 def getCommonHarmonicRhythmsForSingleMeasure(timeSignature: TimeSignature) -> tuple:
+    """Returns a tuple that breaks up a measure into common rhythms for middleground structure"""
     beatsPerMeasure = timeSignature.beatCount
     if beatsPerMeasure == 2:
         return (2,), (1, 1)
@@ -17,6 +18,7 @@ def getCommonHarmonicRhythmsForSingleMeasure(timeSignature: TimeSignature) -> tu
 
 
 def generateHarmonicRhythm(timeSignature: TimeSignature, numMeasures: int, phraseEnd: bool = True, possibleHarmonicRhythms=None) -> list[float]:
+    """"""
     beatQuarterLength = timeSignature.beatDuration.quarterLength
     if possibleHarmonicRhythms is None:
         possibleHarmonicRhythms = getCommonHarmonicRhythmsForSingleMeasure(timeSignature)

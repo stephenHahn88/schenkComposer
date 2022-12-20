@@ -6,6 +6,7 @@ from music21.interval import Interval
 
 
 class ContourType(Enum):
+    """Enumerator for Contour types"""
     UP = ("\u2197", "u")
     DOWN = ("\u2198", "d")
     STRAIGHT = ("\u2192", "s")

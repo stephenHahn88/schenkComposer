@@ -48,6 +48,7 @@ class ContourPCFG:
         self.pcfg = PCFG(Nonterminal("S"), productions)
 
     def newStartProduction(self, contour: str):
+        """Set a new start production for the PCFG"""
         startProduction = ProbabilisticProduction(
             Nonterminal("S"),
             [Nonterminal(contour)],
