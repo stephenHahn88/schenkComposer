@@ -43,7 +43,7 @@ ROCK_TRANSITION_MATRIX = {
         [1, 4, 1, 2, 4, 1, 0], #IV
         [1, 2, 1, 4, 2, 2, 0], #V
         [1, 2, 1, 2, 4, 2, 0], #vi
-        [1, 0, 0, 0, 0, 0, 1]
+        [1, 0, 0, 0, 0, 0, 0] #viio6
     ], dtype=float),
     "labels": ["I", "ii", "iii", "IV", "V", "vi", "viio6"],
     "open": ["V", "IV"],
