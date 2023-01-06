@@ -75,8 +75,11 @@ def getAllMelodies(composerId):
     db = client["test"]
     melodies = db["melodies"]
     mels = list(melodies.find({"composerId": composerId}))
+    for mel in mels:
+        mel["_id"] = str(mel["_id"])
+    print(mels)
     if len(mels) == 0:
-        return Response("No composer found", status=404)
+        return json.dumps({"status": 404})
     return json.dumps(mels)
 
 
