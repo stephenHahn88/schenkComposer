@@ -82,48 +82,47 @@ def getAllMelodies(composerId):
 
 @app.route("/api/composer/<composerId>/melody/<melodyId>/phrase-structure")
 def getPhraseStructure(composerId, melodyId):
-    print("hi")
     mel = _getMel(composerId, melodyId)
-    print(mel)
     result = _determineStatus(composerId, melodyId, mel, "phraseStructure")
-    return json.dumps(result["result"])
+    return json.dumps(result)
 
 @app.route("/api/composer/<composerId>/melody/<melodyId>/meter")
 def getMeter(composerId, melodyId):
     mel = _getMel(composerId, melodyId)
     result = _determineStatus(composerId, melodyId, mel, "meter")
-    return json.dumps(result["result"])
+    return json.dumps(result)
 
 
 @app.route("/api/composer/<composerId>/melody/<melodyId>/hypermeter")
 def getHypermeter(composerId, melodyId):
     mel = _getMel(composerId, melodyId)
     result = _determineStatus(composerId, melodyId, mel, "hypermeter")
-    return json.dumps(result["result"])
+    return json.dumps(result)
 
 
 @app.route("/api/composer/<composerId>/melody/<melodyId>/mg-rhythm")
 def getMgRhythm(composerId, melodyId):
     mel = _getMel(composerId, melodyId)
     result = _determineStatus(composerId, melodyId, mel, "mgRhythm")
-    return json.dumps(result["result"])
+    return json.dumps(result)
 
 
 @app.route("/api/composer/<composerId>/melody/<melodyId>/fg-rhythm")
 def getFgRhythm(composerId, melodyId):
     mel = _getMel(composerId, melodyId)
     result = _determineStatus(composerId, melodyId, mel, "fgRhythm")
-    return json.dumps(result["result"])
+    return json.dumps(result)
 
 
 @app.route("/api/composer/<composerId>/melody/<melodyId>/matrix")
 def getMatrix(composerId, melodyId):
     mel = _getMel(composerId, melodyId)
-    resultMatrix = _determineStatus(composerId, melodyId, mel, "transitionMatrix")
-    resultLabels = _determineStatus(composerId, melodyId, mel, "transitionLabels")
+    resultMatrix = _determineStatus(composerId, melodyId, mel, "matrix")
+    resultLabels = _determineStatus(composerId, melodyId, mel, "matrixLabels")
     resultOpen = _determineStatus(composerId, melodyId, mel, "openHarmonies")
     resultClose = _determineStatus(composerId, melodyId, mel, "closeHarmonies")
     result = {
+        "status": resultMatrix['status'],
         "matrix": resultMatrix['result'],
         "labels": resultLabels['result'],
         "openHarmonies": resultOpen['result'],
@@ -136,14 +135,29 @@ def getMatrix(composerId, melodyId):
 def getHarmonicProgression(composerId, melodyId):
     mel = _getMel(composerId, melodyId)
     result = _determineStatus(composerId, melodyId, mel, "harmonicProgression")
-    return json.dumps(result["result"])
+    return json.dumps(result)
 
 
 @app.route("/api/composer/<composerId>/melody/<melodyId>/middleground-melody")
 def getMgMelody(composerId, melodyId):
     mel = _getMel(composerId, melodyId)
     result = _determineStatus(composerId, melodyId, mel, "mgMelody")
-    return json.dumps(result["result"])
+    return json.dumps(result)
+
+
+@app.route("/api/composer/<composerId>/melody/<melodyId>/notes-harmonies-tempo")
+def getMelodyNotesHarmoniesTempo(composerId, melodyId):
+    mel = _getMel(composerId, melodyId)
+    resultNotes = _determineStatus(composerId, melodyId, mel, "notes")
+    resultHarmonies = _determineStatus(composerId, melodyId, mel, "harmonies")
+    resultTempo = _determineStatus(composerId, melodyId, mel, "tempo")
+    result = {
+        "status": resultNotes['status'],
+        "notes": resultNotes['result'],
+        "harmonies": resultHarmonies['result'],
+        "tempo": resultTempo['result']
+    }
+    return json.dumps(result)
 
 
 """PUT ROUTES"""
@@ -194,6 +208,13 @@ def putHarmonicProgression(composerId, melodyId):
 @app.route("/api/composer/<composerId>/melody/<melodyId>/middleground-melody", methods=['PUT'])
 def putMgMelody(composerId, melodyId):
     result = _putComponent(composerId, melodyId, request.get_json())
+    return {"status": 200}
+
+
+@app.route("/api/composer/<composerId>/melody/<melodyId>/notes-harmonies-tempo", methods=['PUT'])
+def putMelodyNotesHarmoniesTempo(composerId, melodyId):
+    jsonInfo = request.get_json()
+    result = _putComponent(composerId, melodyId, jsonInfo)
     return {"status": 200}
 
 
