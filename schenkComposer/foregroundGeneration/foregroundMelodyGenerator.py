@@ -249,8 +249,9 @@ def generateForegroundMelodyUntilValid(
             )
             # print("SUCCESS")
             return notes, harmony
-        except:
+        except Exception as e:
             if i % 50 == 0:
+                print(e)
                 print("still trying")
     print("Too many tries :(")
 

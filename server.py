@@ -21,7 +21,6 @@ from schenkComposer.music21Wrappers.note import Note
 
 app = Flask(__name__)
 
-# client = AsyncIOMotorClient('localhost', 27017)
 client = MongoClient('localhost', 27017)
 
 """API HELPERS"""
@@ -423,5 +422,6 @@ def _prepareNotesHarmoniesReturn(notes, harmony):
 
 
 if __name__ == "__main__":
-    # melodies.insert_one({'hi': 'hello'})
-    app.run(port=8888, debug=True)
+    from waitress import serve
+    # app.run(port=8888, debug=True)
+    serve(app, host="0.0.0.0", port=8888)
